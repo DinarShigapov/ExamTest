@@ -1,0 +1,94 @@
+﻿<Page x:Class="ExamTest.Pages.FoodListView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ExamTest.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FoodListView">
+
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <TextBlock Text="Сортировка (А-я)"
+                           VerticalAlignment="Center"/>
+                <ComboBox Width="50"
+                          FontSize="15"
+                          SelectedIndex="{Binding SelectedIndexSort, UpdateSourceTrigger=PropertyChanged}"
+                          Margin="10 0">
+                    <ComboBoxItem Content="-"/>
+                    <ComboBoxItem Content="A-я"/>
+                    <ComboBoxItem Content="Я-а"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ItemsSource="{Binding Foods}"
+                  AutoGenerateColumns="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="FoodName"
+                                    Binding="{Binding Name}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Price"
+                                    Binding="{Binding Price}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="KG"
+                                    Binding="{Binding Kg}"
+                                    Width="*"/>
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Edit"
+                                    Padding="10 5" 
+                                    Click="Edit_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Add a food"
+                    Width="200"
+                    Padding="10 2"
+                    Margin="10 5"
+                    HorizontalAlignment="Left"
+                    Click="AddFood_Click"/>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content=" &#60;&#60; "
+                        Click="BFullBack_Click"/>
+                <Button Content=" &#60; "
+                        Click="BBack_Click"/>
+                <TextBox Width="50"
+                         Text="{Binding CurrentPage, UpdateSourceTrigger=PropertyChanged}"
+                         TextAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center"/>
+                <Button Content=" &#62; "
+                        Click="BNext_Click"/>
+                <Button Content=" &#62;&#62; "
+                        Click="BFullNext_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
